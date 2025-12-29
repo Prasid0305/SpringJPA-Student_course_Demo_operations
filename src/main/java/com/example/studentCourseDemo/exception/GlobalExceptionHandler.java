@@ -27,5 +27,13 @@ public class GlobalExceptionHandler {
                 .forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(InsufficientBalanceException.class)
+    public ResponseEntity<Map<String, String>> handleInsufficientBalance(
+            InsufficientBalanceException ex) {
+
+        Map<String, String> error = new HashMap<>();
+        error.put("error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 }
 
